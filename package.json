@@ -1,6 +1,6 @@
 {
   "name": "xinjs-storage",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "minimal async wrapper for indexedDB that is almost a drop-in replacement for localStorage",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
