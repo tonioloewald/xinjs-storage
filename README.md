@@ -1,13 +1,13 @@
 # xinjs-storage
 
 [xinjs](https://xinjs.net) [discord](https://discord.gg/ramJ9rgky5) [github](https://github.com/tonioloewald/xinjs-storage#readme) [npm](https://www.npmjs.com/package/xinjs-storage) <size-break min-width="500"><img alt="bundlejs" src="https://deno.bundlejs.com/?q=xinjs-storage&badge="></size-break>
-
 Copyright ©2023 Tonio Loewald
 
 ## What is it?
 
 `xinjs-storage` is an ultra-lightweight wrapper for indexedDB that gives you
 bascially a _near_ drop-in replacement for `localStorage` that is built on `indexedDB`
+
 and therefore doesn't run into size limits.
 
 Why not drop-in? `indexedDB` is asynchronous and has a _horrible_ API. `xinjs-storage`
@@ -21,15 +21,19 @@ does all that _faster_, so why bother?
 
 ## Installation
 
-> npm i -d xinjs-storage
+```
+npm i -d xinjs-storage
+```
 
 ## Usage
 
-```import { indexedStorage } from 'xinjs-storage'
+```
+import { indexedStorage } from 'xinjs-storage'
 
 await indexedStorage.setItem('foo', {bar: 'baz'})
 const greatMovie = await indexedStorage.getItem('luhrmann')
 ```
+
 ## Methods
 
 You get the methods you expect and need, and nothing else.
@@ -53,6 +57,7 @@ import { IndexedStorage } from 'xinjs-storage'
 
 const myStorage = new IndexedStorage('my-unique-name')
 ```
+
 ## VERSION
 
 The `IndexedStorage` class has a single static property `VERSION` that versions
@@ -62,7 +67,9 @@ the store so if the schema ever needs to be updated…
 
 To find out how much local storage you're wasting, you can use
 
-> await navigator.storage.estimate()
+```
+await navigator.storage.estimate()
+```
 
 in your browser's console.
 
