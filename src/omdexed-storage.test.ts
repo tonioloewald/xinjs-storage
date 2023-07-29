@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-expect-error
 import { test, expect } from 'bun:test'
 import puppeteer from 'puppeteer'
 

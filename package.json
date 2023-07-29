@@ -7,7 +7,7 @@
   "source": "src/index.ts",
   "scripts": {
     "start": "rm -rf www && bun parcel demo/index.html --dist-dir www -p 7337",
-    "pack": "bun format && bun test && bun parcel build --public-url . && cp demo/CNAME docs",
+    "pack": "bun format && bun test && bun parcel build --public-url .",
     "format": "bun prettier --write .",
     "test": "bun test",
     "update": "rm -rf .parcel-cache && rm -rf node_modules && npm install && bun install"

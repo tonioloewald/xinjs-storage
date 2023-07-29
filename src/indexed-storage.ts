@@ -5,6 +5,7 @@
  * https://gist.github.com/JamesMessinger/a0d6389a5d0e3a24814b
  */
 
+// @ts-expect-error
 const { indexedDB } = window
 
 export class IndexedStorage {
