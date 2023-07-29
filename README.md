@@ -4,7 +4,7 @@
 
 Copyright ©2023 Tonio Loewald
 
-## what is it?
+## What is it?
 
 `xinjs-storage` is an ultra-lightweight wrapper for indexedDB that gives you
 bascially a _near_ drop-in replacement for `localStorage` that is built on `indexedDB`
@@ -13,7 +13,7 @@ and therefore doesn't run into size limits.
 Why not drop-in? `indexedDB` is asynchronous and has a _horrible_ API. `xinjs-storage`
 wraps everything in promises but it's still async.
 
-## why?
+## Why?
 
 There are other wrappers for indexedDB but they aren't _teensy_. People get
 enticed by the robust looking database features and forget Javascript actually
@@ -62,6 +62,21 @@ To find out how much local storage you're wasting, you can use
 > await navigator.storage.estimate()
 
 in your browser's console.
+
+## Developers
+
+This project was built using `bun` as well as `nodejs`. If you don't want to use
+`bun` (e.g. you use Windows and not the linux environment) you can just replace
+all the references to `bun` in the scripts with `npm` and it should all work
+(but slower…).
+
+You can get bun [here](https://bun.sh/).
+
+1. npm install
+2. bun install
+3. bun start // launch the test server
+4. bun test // runs tests using puppeteer
+5. bun package // build the libraries
 
 ## The Future
 

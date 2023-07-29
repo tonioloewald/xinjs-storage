@@ -1,13 +1,13 @@
 {
   "name": "xinjs-storage",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "minimal async wrapper for indexedDB that is almost a drop-in replacement for localStorage",
   "main": "dist/index.js",
   "types": "dist/types.d.ts",
   "source": "src/index.ts",
   "scripts": {
     "start": "rm -rf www && bun parcel demo/index.html --dist-dir www -p 7337",
-    "build": "bun docs.js && bun format && bun test && rm -rf docs && bun parcel build --public-url . && cp demo/CNAME docs",
+    "pack": "bun format && bun test && bun parcel build --public-url . && cp demo/CNAME docs",
     "format": "bun prettier --write .",
     "test": "bun test",
     "update": "rm -rf .parcel-cache && rm -rf node_modules && npm install && bun install"
