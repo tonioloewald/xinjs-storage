@@ -25,31 +25,34 @@ does all that _faster_, so why bother?
 
 ## Usage
 
-> import { indexedStorage } from 'xinjs-storage'
->
-> await indexedStorage.setItem('foo', {bar: 'baz'})
-> const greatMovie = await indexedStorage.getItem('luhrmann')
+```import { indexedStorage } from 'xinjs-storage'
 
+await indexedStorage.setItem('foo', {bar: 'baz'})
+const greatMovie = await indexedStorage.getItem('luhrmann')
+```
 ## Methods
 
 You get the methods you expect and need, and nothing else.
 
-> async indexedStorage.setItem(id: string, value: any): Promise<void>
-> async indexedStorage.getItem(id: string): Promise<any | undefined>
-> async indexedStorage.count(): Promise<number>
-> async indexedStorage.allKeys(): Promise<string[]>
-> asnyc indexedStorage.delete(id: string): Promise<void>
-> async indexedStorage.clear(): Promise<void>
+```
+async indexedStorage.setItem(id: string, value: any): Promise<void>
+async indexedStorage.getItem(id: string): Promise<any | undefined>
+async indexedStorage.count(): Promise<number>
+async indexedStorage.allKeys(): Promise<string[]>
+asnyc indexedStorage.delete(id: string): Promise<void>
+async indexedStorage.clear(): Promise<void>
+```
 
 ## Class
 
 If you want to create multiple stores for some reason (e.g. you might be merging
 two projects that each use their own), there's actually an `IndexedStorage` class.
 
-> import { IndexedStorage } from 'xinjs-storage'
->
-> const myStorage = new IndexedStorage('my-unique-name')
+```
+import { IndexedStorage } from 'xinjs-storage'
 
+const myStorage = new IndexedStorage('my-unique-name')
+```
 ## VERSION
 
 The `IndexedStorage` class has a single static property `VERSION` that versions
