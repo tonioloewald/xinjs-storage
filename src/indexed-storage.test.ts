@@ -4,7 +4,7 @@ import { test, expect } from 'bun:test'
 import puppeteer from 'puppeteer'
 
 test('it works', async () => {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: 'new'})
   const page = await browser.newPage()
   await page.goto('http://localhost:7337')
 

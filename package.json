@@ -35,7 +35,7 @@
     "bun-types": "latest",
     "parcel": "2.9.3",
     "prettier": "^2.8.8",
-    "puppeteer": "^20.9.0",
+    "puppeteer": "^21.10.0",
     "typescript": "^5.0.4"
   },
   "files": [
