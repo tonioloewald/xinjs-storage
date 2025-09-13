@@ -7,8 +7,9 @@ Copyright ©2023 Tonio Loewald
 
 `xinjs-storage` is an ultra-lightweight wrapper for indexedDB that gives you
 bascially a _near_ drop-in replacement for `localStorage` that is built on `indexedDB`
-
 and therefore doesn't run into size limits.
+
+It also lets you create as many different named stores as you like.
 
 Why not drop-in? `indexedDB` is asynchronous and has a _horrible_ API. `xinjs-storage`
 wraps everything in promises but it's still async.
@@ -17,7 +18,7 @@ wraps everything in promises but it's still async.
 
 There are other wrappers for indexedDB but they aren't _teensy_. People get
 enticed by the robust looking database features and forget Javascript actually
-does all that _faster_, so why bother?
+does all that _faster_, and in a language you already know and use, so why bother?
 
 ## Installation
 
