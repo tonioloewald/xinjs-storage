@@ -1,10 +1,10 @@
-/* eslint-disable */
-// @ts-expect-error
 import { test, expect } from 'bun:test'
 import puppeteer from 'puppeteer'
 
+console.log('Are you running bun start so the web server is up?')
+
 test('it works', async () => {
-  const browser = await puppeteer.launch({headless: 'new'})
+  const browser = await puppeteer.launch({ headless: 'true' })
   const page = await browser.newPage()
   await page.goto('http://localhost:7337')
 
@@ -58,6 +58,11 @@ test('it works', async () => {
     return indexedStorage.getItem('baz')
   })
   expect(data).toBe(undefined)
+
+  data = await page.evaluate(async () => {
+    return indexedStorage.allKeys()
+  })
+  expect(data).toEqual(['foo'])
 
   // cleanup
   count = await page.evaluate(async () => {
