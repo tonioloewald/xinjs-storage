@@ -38,74 +38,40 @@ class $722ee6daa27bfa02$export$41a78aa1acdd6131 {
         });
         this.request = request;
     }
-    async setItem(id, value) {
+    async dispatch(method, value) {
         const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readwrite');
+        const tx = db.transaction('objects', [
+            'put',
+            'clear',
+            'delete'
+        ].includes(method) ? 'readwrite' : 'readonly');
         const store = tx.objectStore('objects');
         return new Promise((resolve, reject)=>{
-            const req = store.put({
-                id: id,
-                value: value
-            });
-            req.onsuccess = ()=>resolve();
+            const req = store[method](value);
+            req.onsuccess = ()=>resolve(req.result?.value != null ? req.result.value : req.result);
             req.onerror = ()=>reject(req.error);
+        });
+    }
+    async setItem(id, value) {
+        return this.dispatch('put', {
+            id: id,
+            value: value
         });
     }
     async getItem(id) {
-        const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readonly');
-        const store = tx.objectStore('objects');
-        return new Promise((resolve, reject)=>{
-            const req = store.get(id);
-            req.onsuccess = ()=>{
-                resolve(req.result?.value != null ? req.result.value : undefined);
-            };
-            req.onerror = ()=>reject(req.error);
-        });
+        return this.dispatch('get', id);
     }
     async count() {
-        const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readonly');
-        const store = tx.objectStore('objects');
-        return new Promise((resolve, reject)=>{
-            const req = store.count();
-            req.onsuccess = ()=>{
-                resolve(req.result);
-            };
-            req.onerror = ()=>reject(req.error);
-        });
+        return this.dispatch('count');
     }
     async allKeys() {
-        const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readonly');
-        const store = tx.objectStore('objects');
-        return new Promise((resolve, reject)=>{
-            const req = store.getAllKeys();
-            req.onsuccess = ()=>{
-                resolve(req.result);
-            };
-            req.onerror = ()=>reject(req.error);
-        });
+        return this.dispatch('getAllKeys');
     }
     async delete(id) {
-        const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readwrite');
-        const store = tx.objectStore('objects');
-        return new Promise((resolve, reject)=>{
-            const req = store.delete(id);
-            req.onsuccess = resolve;
-            req.onerror = ()=>reject(req.error);
-        });
+        return this.dispatch('delete', id);
     }
     async clear() {
-        const db = await this.dbPromise;
-        const tx = db.transaction('objects', 'readwrite');
-        const store = tx.objectStore('objects');
-        return new Promise((resolve, reject)=>{
-            const req = store.clear();
-            req.onsuccess = resolve;
-            req.onerror = ()=>reject(req.error);
-        });
+        return this.dispatch('clear');
     }
 }
 const $722ee6daa27bfa02$export$5281f72867bab9d2 = new $722ee6daa27bfa02$export$41a78aa1acdd6131('default-local-db');

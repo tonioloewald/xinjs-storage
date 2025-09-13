@@ -39,76 +39,46 @@ export class IndexedStorage {
     this.request = request
   }
 
-  async setItem(id: string, value: any): Promise<void> {
+  private async dispatch(
+    method: 'put' | 'get' | 'count' | 'getAllKeys' | 'clear' | 'delete',
+    value?: any
+  ): Promise<any> {
     const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readwrite')
+    const tx = db.transaction(
+      'objects',
+      ['put', 'clear', 'delete'].includes(method) ? 'readwrite' : 'readonly'
+    )
     const store = tx.objectStore('objects')
     return new Promise((resolve, reject) => {
-      const req = store.put({ id, value })
-      req.onsuccess = () => resolve()
+      const req = store[method](value)
+      req.onsuccess = () =>
+        resolve(req.result?.value != null ? req.result.value : req.result)
       req.onerror = () => reject(req.error)
     })
+  }
+
+  async setItem(id: string, value: any): Promise<void> {
+    return this.dispatch('put', { id, value })
   }
 
   async getItem(id: string): Promise<any | undefined> {
-    const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readonly')
-    const store = tx.objectStore('objects')
-    return new Promise((resolve, reject) => {
-      const req = store.get(id)
-      req.onsuccess = () => {
-        resolve(req.result?.value != null ? req.result.value : undefined)
-      }
-      req.onerror = () => reject(req.error)
-    })
+    return this.dispatch('get', id)
   }
 
   async count(): Promise<number> {
-    const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readonly')
-    const store = tx.objectStore('objects')
-    return new Promise((resolve, reject) => {
-      const req = store.count()
-      req.onsuccess = () => {
-        resolve(req.result)
-      }
-      req.onerror = () => reject(req.error)
-    })
+    return this.dispatch('count')
   }
 
   async allKeys(): Promise<string[]> {
-    const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readonly')
-    const store = tx.objectStore('objects')
-    return new Promise((resolve, reject) => {
-      const req = store.getAllKeys()
-      req.onsuccess = () => {
-        resolve(req.result)
-      }
-      req.onerror = () => reject(req.error)
-    })
+    return this.dispatch('getAllKeys')
   }
 
   async delete(id: string): Promise<void> {
-    const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readwrite')
-    const store = tx.objectStore('objects')
-    return new Promise((resolve, reject) => {
-      const req = store.delete(id)
-      req.onsuccess = resolve
-      req.onerror = () => reject(req.error)
-    })
+    return this.dispatch('delete', id)
   }
 
   async clear(): Promise<void> {
-    const db = await this.dbPromise
-    const tx = db.transaction('objects', 'readwrite')
-    const store = tx.objectStore('objects')
-    return new Promise((resolve, reject) => {
-      const req = store.clear()
-      req.onsuccess = resolve
-      req.onerror = () => reject(req.error)
-    })
+    return this.dispatch('clear')
   }
 }
 
